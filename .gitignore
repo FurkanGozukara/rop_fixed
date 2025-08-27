@@ -7,3 +7,7 @@ BasicSR/
 face2.png
 test_video.mp4
 venv/
+gfpgan
+gfpgan/
+nul
+face_restored_video3.mp4
