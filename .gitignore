@@ -1,0 +1,9 @@
+.idea
+models
+temp
+__pycache__
+.claude/
+BasicSR/
+face2.png
+test_video.mp4
+venv/

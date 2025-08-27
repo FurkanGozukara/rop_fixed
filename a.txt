@@ -1,0 +1,21 @@
+
+--extra-index-url https://download.pytorch.org/whl/cu128
+torch==2.7.0
+torchvision
+torchaudio
+
+tensorflow==2.19.0
+opencv-python==4.12.0.88
+insightface==0.7.3
+onnx
+customtkinter
+psutil==5.9.5
+tk
+tkinterdnd2
+tkinterdnd2-universal
+pillow==11.3.0
+onnxruntime-gpu==1.21.0
+protobuf==5.29.5
+tqdm==4.67.1
+gfpgan==1.3.8
+opennsfw2
