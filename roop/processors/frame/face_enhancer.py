@@ -1,7 +1,25 @@
 from typing import Any, List, Callable
 import cv2
 import threading
-from gfpgan.utils import GFPGANer
+import sys
+import os
+
+# Try to import GFPGANer with proper error handling
+try:
+    from gfpgan.utils import GFPGANer
+except ImportError as e:
+    print(f"Failed to import GFPGANer from gfpgan.utils: {e}")
+    # Try adding BasicSR to path if it exists
+    current_dir = os.path.dirname(os.path.abspath(__file__))
+    project_root = os.path.dirname(os.path.dirname(os.path.dirname(current_dir)))
+    basicsr_path = os.path.join(project_root, 'BasicSR')
+    if os.path.exists(basicsr_path):
+        sys.path.insert(0, basicsr_path)
+    try:
+        from gfpgan.utils import GFPGANer
+    except ImportError:
+        print("Error: Could not import GFPGANer. Please ensure gfpgan is installed: pip install gfpgan")
+        raise
 
 import roop.globals
 import roop.processors.frame.core
