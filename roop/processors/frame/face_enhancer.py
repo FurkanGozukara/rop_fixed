@@ -4,22 +4,25 @@ import threading
 import sys
 import os
 
-# Try to import GFPGANer with proper error handling
+# Add BasicSR to path BEFORE importing GFPGANer since GFPGAN depends on it
+current_dir = os.path.dirname(os.path.abspath(__file__))
+project_root = os.path.dirname(os.path.dirname(os.path.dirname(current_dir)))
+basicsr_path = os.path.join(project_root, 'BasicSR')
+
+# Add BasicSR to Python path if it exists
+if os.path.exists(basicsr_path) and basicsr_path not in sys.path:
+    sys.path.insert(0, basicsr_path)
+    print(f"Added BasicSR to path: {basicsr_path}")
+
+# Now try to import GFPGANer
 try:
     from gfpgan.utils import GFPGANer
 except ImportError as e:
-    print(f"Failed to import GFPGANer from gfpgan.utils: {e}")
-    # Try adding BasicSR to path if it exists
-    current_dir = os.path.dirname(os.path.abspath(__file__))
-    project_root = os.path.dirname(os.path.dirname(os.path.dirname(current_dir)))
-    basicsr_path = os.path.join(project_root, 'BasicSR')
-    if os.path.exists(basicsr_path):
-        sys.path.insert(0, basicsr_path)
-    try:
-        from gfpgan.utils import GFPGANer
-    except ImportError:
-        print("Error: Could not import GFPGANer. Please ensure gfpgan is installed: pip install gfpgan")
-        raise
+    print(f"Failed to import GFPGANer: {e}")
+    print(f"Current sys.path: {sys.path[:5]}")  # Show first 5 paths for debugging
+    print("Error: Could not import GFPGANer. Please ensure both basicsr and gfpgan are properly installed.")
+    print("Try: pip install basicsr gfpgan")
+    raise
 
 import roop.globals
 import roop.processors.frame.core
